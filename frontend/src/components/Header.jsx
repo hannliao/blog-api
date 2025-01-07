@@ -1,17 +1,22 @@
 import { useContext } from 'react';
 import { UserContext } from '../UserContext';
 import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 const Header = () => {
-  const { user, loading, error } = useContext(UserContext);
+  const { user, setUser, loading } = useContext(UserContext);
+  const navigate = useNavigate();
 
   if (loading) {
     return <div>Loading...</div>;
   }
 
-  if (error) {
-    return <div>{error}</div>;
-  }
+  const handleLogout = (event) => {
+    localStorage.removeItem('token');
+    localStorage.clear();
+    setUser(null);
+    navigate('/login');
+  };
 
   return (
     <header className="w-screen flex justify-around items-center p-10">
@@ -20,26 +25,24 @@ const Header = () => {
       </Link>
       <div>
         {user ? (
-          <>
-            <span>Hi, @{user.username}</span>
-            <Link to={`${username}`}>
-              <img
-                src="/icons/person-circle-outline.svg"
-                alt="account"
-                className="w-8"
-              />
-            </Link>
-          </>
+          <Link to={`${user.username}`}>
+            <img
+              src="/icons/person-circle-outline.svg"
+              alt="dashboard"
+              className="w-8"
+            />
+          </Link>
         ) : (
           <Link to="/login">
             <img
               src="/icons/person-circle-outline.svg"
-              alt="account"
+              alt="dashboard"
               className="w-8"
             />
           </Link>
         )}
       </div>
+      <button onClick={handleLogout}>Log out</button>
     </header>
   );
 };

@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { getPosts } from '../api/posts';
+import { getAllPosts } from '../api/posts';
 
 const usePosts = () => {
   const [posts, setPosts] = useState([]);
@@ -10,10 +10,9 @@ const usePosts = () => {
     const fetchPosts = async () => {
       try {
         setLoading(true);
-        const fetchedPosts = await getPosts();
+        const fetchedPosts = await getAllPosts();
         setPosts(fetchedPosts);
       } catch (err) {
-        console.error(err);
         setError('Failed to fetch blog posts');
       } finally {
         setLoading(false);

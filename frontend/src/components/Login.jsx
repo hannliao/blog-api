@@ -1,19 +1,22 @@
-import { useState } from 'react';
+import { useState, useContext } from 'react';
+import { UserContext } from '../UserContext';
 import { Link, useNavigate } from 'react-router-dom';
-import { getUser } from '../api/auth';
+import { loginUser } from '../api/auth';
 
 const Login = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [errors, setErrors] = useState([]);
+  const { setUser } = useContext(UserContext);
   const navigate = useNavigate();
 
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-      const response = await getUser(username, password);
-      if (response.redirect) {
-        navigate(response.redirect);
+      const { user, redirect } = await loginUser(username, password);
+      setUser(user);
+      if (redirect) {
+        navigate(redirect || '/');
       }
     } catch (err) {
       console.error(err.message);
