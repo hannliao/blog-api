@@ -1,7 +1,7 @@
 const { Router } = require('express');
 const router = Router();
-const controller = require('../controllers/logout');
+const controller = require('../controllers/user');
 
-router.get('/', controller.logout);
+router.get('/', controller.getUser);
 
 module.exports = router;

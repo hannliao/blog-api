@@ -8,11 +8,9 @@ const prisma = require('./prisma/prisma');
 const session = require('express-session');
 const { PrismaSessionStore } = require('@quixo3/prisma-session-store');
 
-const indexRouter = require('./routes/index');
-const signupRouter = require('./routes/signup');
-const loginRouter = require('./routes/login');
-const logoutRouter = require('./routes/logout');
+const authRouter = require('./routes/auth');
 const postsRouter = require('./routes/posts');
+const userRouter = require('./routes/user');
 
 const app = express();
 
@@ -45,16 +43,17 @@ app.use((req, res, next) => {
   next();
 });
 
-app.use('/signup', signupRouter);
-app.use('/login', loginRouter);
-app.use('/logout', logoutRouter);
-app.use('/', passport.authenticate('jwt', { session: false }), indexRouter);
-app.use('/api', passport.authenticate('jwt', { session: false }), postsRouter);
+app.use('/', authRouter);
+app.use('/api/posts', postsRouter);
+app.use(
+  '/api/user',
+  passport.authenticate('jwt', { session: false }),
+  userRouter
+);
 
 app.use((err, req, res, next) => {
   console.error(err);
-  res.status(err.statusCode || 500);
-  res.render('error', { message: err.message || 'Internal Server Error' });
+  res.status(err.statusCode || 500).json({ message: 'Internal Server Error' });
 });
 
 const PORT = process.env.PORT || 3000;
