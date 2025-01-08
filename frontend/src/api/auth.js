@@ -10,7 +10,6 @@ export const loginUser = async (username, password) => {
 
   if (response.ok) {
     localStorage.setItem('token', data.token);
-    console.log('login data:', data);
     return data;
   } else {
     throw data;
@@ -50,4 +49,5 @@ export const createUser = async (username, password, confirmPwd) => {
     const error = await response.json();
     throw error;
   }
+  return response.json();
 };

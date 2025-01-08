@@ -1,4 +1,5 @@
 import usePosts from '../hooks/usePosts';
+import PostCard from './PostCard';
 
 const Home = () => {
   const { posts, loading, error } = usePosts();
@@ -12,16 +13,23 @@ const Home = () => {
   }
 
   return (
-    <>
-      <h2>Recent Posts</h2>
+    <div className="w-full flex-1">
+      <h2 className="text-lg font-medium my-2">Recent Posts</h2>
       {posts.length > 0 && (
-        <div>
+        <div className="flex flex-wrap justify-around">
           {posts.map((post, index) => (
-            <div key={index}>{post}</div>
+            <PostCard
+              key={index}
+              title={post.title}
+              content={post.content}
+              timestamp={post.timestamp}
+              username={post.username}
+              slug={post.slug}
+            />
           ))}
         </div>
       )}
-    </>
+    </div>
   );
 };
 

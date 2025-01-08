@@ -1,9 +1,7 @@
-// signup
 const { validationResult } = require('express-validator');
-const signupValidator = require('../middleware/signupValidator');
+const signupValidator = require('../auth/signupValidator');
 const bcrypt = require('bcryptjs');
 const prisma = require('../prisma/prisma');
-// login
 const passport = require('passport');
 const jwt = require('jsonwebtoken');
 

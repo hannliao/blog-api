@@ -1,5 +1,5 @@
 import { useState, useContext } from 'react';
-import { UserContext } from '../UserContext';
+import { UserContext } from '../contexts/UserContext';
 import { Link, useNavigate } from 'react-router-dom';
 import { loginUser } from '../api/auth';
 
@@ -27,7 +27,7 @@ const Login = () => {
   };
 
   return (
-    <div className="w-full flex flex-col items-center justify-center bg-stone-200">
+    <div className="w-full flex flex-col items-center justify-center">
       <h1 className="font-custom font-bold text-2xl p-5 mb-5">softspeak</h1>
       {errors.length > 0 && (
         <div>

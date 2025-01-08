@@ -29,6 +29,8 @@ model Post {
   isPublished Boolean
   user        User      @relation(fields: [userId], references: [id])
   userId      Int
+  username    String    // for URLs and convenience
+  slug        String
   comments    Comment[]
 }
 

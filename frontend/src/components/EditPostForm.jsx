@@ -4,7 +4,7 @@ import { createPost } from '../api/posts';
 import { PostContext } from '../contexts/PostContext';
 import { UserContext } from '../contexts/UserContext';
 
-const NewPostForm = () => {
+const EditPostForm = () => {
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
   const [isPublished, setIsPublished] = useState(false);
@@ -35,7 +35,7 @@ const NewPostForm = () => {
   return (
     <>
       <form onSubmit={handleSubmit} className="w-full flex-1 flex flex-col">
-        <h1 className="text-lg font-medium mb-5">Create Post</h1>
+        <h1 className="text-lg font-medium mb-5">Edit Post</h1>
         <input
           type="text"
           name="title"
@@ -75,4 +75,4 @@ const NewPostForm = () => {
   );
 };
 
-export default NewPostForm;
+export default EditPostForm;

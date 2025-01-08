@@ -1,25 +1,16 @@
 import { useContext } from 'react';
-import { UserContext } from '../UserContext';
+import { UserContext } from '../contexts/UserContext';
 import { Link } from 'react-router-dom';
-import { useNavigate } from 'react-router-dom';
 
 const Header = () => {
-  const { user, setUser, loading } = useContext(UserContext);
-  const navigate = useNavigate();
+  const { user, loading } = useContext(UserContext);
 
   if (loading) {
     return <div>Loading...</div>;
   }
 
-  const handleLogout = (event) => {
-    localStorage.removeItem('token');
-    localStorage.clear();
-    setUser(null);
-    navigate('/login');
-  };
-
   return (
-    <header className="w-screen flex justify-around items-center p-10">
+    <header className="w-full flex justify-between items-center py-5">
       <Link to="/">
         <h1 className="font-bold text-2xl">softspeak</h1>
       </Link>
@@ -42,7 +33,6 @@ const Header = () => {
           </Link>
         )}
       </div>
-      <button onClick={handleLogout}>Log out</button>
     </header>
   );
 };
