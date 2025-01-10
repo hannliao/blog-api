@@ -6,14 +6,13 @@ export const loginUser = async (username, password) => {
     },
     body: JSON.stringify({ username, password }),
   });
-  const data = await response.json();
 
-  if (response.ok) {
-    localStorage.setItem('token', data.token);
-    return data;
-  } else {
+  const data = await response.json();
+  if (!response.ok) {
     throw data;
   }
+  localStorage.setItem('token', data.token);
+  return data;
 };
 
 export const getUser = async () => {

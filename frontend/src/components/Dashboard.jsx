@@ -27,6 +27,7 @@ const Dashboard = () => {
     localStorage.removeItem('token');
     localStorage.clear();
     setUser(null);
+    console.log('Logged out');
     navigate('/login');
   };
 

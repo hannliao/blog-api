@@ -16,11 +16,9 @@ const EditPostForm = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-
     if (!post) {
       console.error('Post not found');
     }
-
     const formData = {
       title,
       content,
@@ -28,6 +26,7 @@ const EditPostForm = () => {
     };
     try {
       const response = await updatePost(post.id, formData);
+      console.log(response.message);
       const updatedPost = response.post;
       const updatedPosts = posts.map((p) =>
         p.slug === slug ? updatedPost : p

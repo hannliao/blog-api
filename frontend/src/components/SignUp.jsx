@@ -13,6 +13,7 @@ const SignUp = () => {
     event.preventDefault();
     try {
       const response = await createUser(username, password, confirmPwd);
+      console.log(response.message);
       if (response.redirect) {
         navigate(response.redirect);
       }
@@ -25,8 +26,7 @@ const SignUp = () => {
   };
 
   return (
-    <div className="w-full flex flex-col items-center justify-center">
-      <h1 className="font-custom font-bold text-2xl p-5 mb-5">softspeak</h1>
+    <div className="w-full flex-1 flex flex-col items-center justify-center">
       {errors.length > 0 && (
         <div>
           {errors.map((error, index) => (
@@ -75,13 +75,16 @@ const SignUp = () => {
           onChange={(e) => setConfirmPwd(e.target.value)}
           required
         />
-        <button className="bg-sky-700 rounded-full p-2 mt-5 text-white">
+        <button className="bg-lime-700 hover:bg-lime-600 rounded-full p-2 mt-5 text-white">
           Sign Up
         </button>
       </form>
       <span>
         Already have an account?{' '}
-        <Link to="/login" className="text-sky-700 underline">
+        <Link
+          to="/login"
+          className="text-lime-700 hover:text-lime-600 underline"
+        >
           Log In
         </Link>
       </span>

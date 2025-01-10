@@ -17,15 +17,9 @@ const routes = [
       { path: ':username', element: <Dashboard /> },
       { path: ':username/:slug', element: <PostDetail /> },
       { path: ':username/:slug/edit', element: <EditPostForm /> },
+      { path: 'signup', element: <SignUp /> },
+      { path: 'login', element: <Login /> },
     ],
-  },
-  {
-    path: 'signup',
-    element: <SignUp />,
-  },
-  {
-    path: 'login',
-    element: <Login />,
   },
 ];
 

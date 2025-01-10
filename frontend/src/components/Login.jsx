@@ -13,10 +13,11 @@ const Login = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-      const { user, redirect } = await loginUser(username, password);
-      setUser(user);
-      if (redirect) {
-        navigate(redirect || '/');
+      const response = await loginUser(username, password);
+      console.log(response.message);
+      setUser(response.user);
+      if (response.redirect) {
+        navigate(response.redirect);
       }
     } catch (err) {
       console.error(err.message);
@@ -27,8 +28,7 @@ const Login = () => {
   };
 
   return (
-    <div className="w-full flex flex-col items-center justify-center">
-      <h1 className="font-custom font-bold text-2xl p-5 mb-5">softspeak</h1>
+    <div className="w-full flex-1 flex flex-col items-center justify-center">
       {errors.length > 0 && (
         <div>
           {errors.map((error, index) => (
@@ -66,13 +66,16 @@ const Login = () => {
           onChange={(e) => setPassword(e.target.value)}
           required
         />
-        <button className="bg-sky-700 rounded-full p-2 mt-5 text-white">
+        <button className="bg-lime-700 hover:bg-lime-600 rounded-full p-2 mt-5 text-white">
           Log In
         </button>
       </form>
       <span>
         Don't have an account yet?{' '}
-        <Link to="/signup" className="text-sky-700 underline">
+        <Link
+          to="/signup"
+          className="text-lime-700 hover:text-lime-600 underline"
+        >
           Sign Up
         </Link>
       </span>

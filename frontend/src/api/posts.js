@@ -2,12 +2,12 @@ export const getPosts = async () => {
   const response = await fetch(
     `${import.meta.env.VITE_BLOG_API_URL}/api/posts`
   );
-  const data = await response.json();
 
   if (!response.ok) {
-    throw data;
+    const error = await response.json();
+    throw error;
   }
-  return data;
+  return response.json();
 };
 
 export const createPost = async (formData) => {
@@ -24,11 +24,11 @@ export const createPost = async (formData) => {
     }
   );
 
-  const data = await response.json();
   if (!response.ok) {
-    throw new Error(data.message);
+    const error = await response.json();
+    throw error;
   }
-  return data;
+  return response.json();
 };
 
 export const updatePost = async (id, formData) => {
@@ -45,9 +45,29 @@ export const updatePost = async (id, formData) => {
     }
   );
 
-  const data = await response.json();
   if (!response.ok) {
-    throw new Error(data.message);
+    const error = await response.json();
+    throw new Error(error);
   }
-  return data;
+  return response.json();
+};
+
+export const deletePost = async (id) => {
+  const token = localStorage.getItem('token');
+  const response = await fetch(
+    `${import.meta.env.VITE_BLOG_API_URL}/api/posts/${id}`,
+    {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+    }
+  );
+
+  if (!response.ok) {
+    const error = await response.json();
+    throw new Error(error);
+  }
+  return response.json();
 };
