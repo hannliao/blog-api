@@ -50,19 +50,19 @@ const EditPostForm = () => {
 
   return (
     <>
-      <form onSubmit={handleSubmit} className="w-full flex-1 flex flex-col">
+      <form onSubmit={handleSubmit} className="w-full flex-1 flex flex-col p-2">
         <h1 className="text-lg font-medium mb-5">Edit Post</h1>
         <input
           type="text"
           name="title"
-          className="border border-stone-300 rounded-lg p-2 my-2"
+          className="border border-stone-300 outline-yellow-300 rounded-lg p-2 my-2"
           placeholder="Title"
           value={title}
           onChange={(e) => setTitle(e.target.value)}
           required
         />
         <textarea
-          className="border border-stone-300 rounded-lg p-2 my-2"
+          className="border border-stone-300 outline-yellow-300 rounded-lg p-2 my-2"
           name="content"
           placeholder="Content"
           rows="10"
@@ -74,7 +74,7 @@ const EditPostForm = () => {
           <button
             type="submit"
             onClick={() => setIsPublished(false)}
-            className="hover:bg-yellow-200 rounded-lg p-3 m-2 text-sm"
+            className="hover:bg-yellow-300 rounded-lg p-3 m-2 text-sm"
           >
             Save draft
           </button>

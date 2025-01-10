@@ -64,22 +64,25 @@ const Dashboard = () => {
   }
 
   return (
-    <div className="w-full flex-1 flex flex-col">
+    <div className="w-full flex-1 flex flex-col p-2">
       <div className="flex flex-col items-end">
         <p className="font-semibold">@{user.username}</p>
-        <button onClick={handleLogout} className="underline">
+        <button
+          onClick={handleLogout}
+          className="underline hover:text-lime-600"
+        >
           Log out
         </button>
       </div>
 
       <h2 className="text-lg font-medium mb-5">Posts</h2>
-      <div className="max-w-3xl flex">
-        <nav className="min-w-48 mr-10 h-5/6 flex-shrink-0">
+      <div className="max-w-3xl flex flex-1">
+        <nav className="min-w-48 mr-10 h-5/6">
           <ul className="h-full flex flex-col">
             <li>
               <button
                 onClick={handleClick}
-                className={`w-full p-4 hover:bg-slate-200 ${
+                className={`w-full p-4 hover:bg-yellow-100 ${
                   selectedFilter === 'Published' && 'bg-stone-200'
                 }`}
               >
@@ -89,7 +92,7 @@ const Dashboard = () => {
             <li>
               <button
                 onClick={handleClick}
-                className={`w-full p-4 hover:bg-slate-200 ${
+                className={`w-full p-4 hover:bg-yellow-100 ${
                   selectedFilter === 'Drafts' && 'bg-stone-200'
                 }`}
               >

@@ -34,19 +34,19 @@ const NewPostForm = () => {
 
   return (
     <>
-      <form onSubmit={handleSubmit} className="w-full flex-1 flex flex-col">
+      <form onSubmit={handleSubmit} className="w-full flex-1 flex flex-col p-2">
         <h1 className="text-lg font-medium mb-5">Create Post</h1>
         <input
           type="text"
           name="title"
-          className="border border-stone-300 rounded-lg p-2 my-2"
+          className="border border-stone-300 outline-yellow-300 rounded-lg p-2 my-2"
           placeholder="Title"
           value={title}
           onChange={(e) => setTitle(e.target.value)}
           required
         />
         <textarea
-          className="border border-stone-300 rounded-lg p-2 my-2"
+          className="border border-stone-300 outline-yellow-300 rounded-lg p-2 my-2"
           name="content"
           placeholder="Content"
           rows="10"

@@ -17,8 +17,8 @@ const Home = () => {
   }
 
   return (
-    <div className="w-full flex-1">
-      <h2 className="text-lg font-medium my-2">Recent Posts</h2>
+    <div className="w-full flex-1 p-2">
+      <h2 className="text-lg font-medium mb-5">Recent Posts</h2>
       {published.length > 0 && (
         <div className="flex flex-wrap justify-around">
           {published.map((post, index) => (
