@@ -4,5 +4,8 @@ export const formatTimestamp = (timestamp) => {
     year: 'numeric',
     month: 'short',
     day: 'numeric',
+    hour: 'numeric',
+    minute: 'numeric',
+    hour12: true,
   });
 };

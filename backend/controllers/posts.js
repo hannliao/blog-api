@@ -81,15 +81,19 @@ exports.createPost = async (req, res) => {
 
 exports.updatePost = async (req, res) => {
   try {
+    const postId = parseInt(req.params.id);
     const { title, content, isPublished } = req.body;
+    const newSlug = slugify(title);
     const post = await prisma.post.update({
+      where: { id: postId },
       data: {
         title,
         content,
         isPublished,
+        slug: newSlug,
+        timestamp: new Date(),
       },
     });
-    console.log('This is the updatePost route');
     return res.status(201).json({ message: 'Post saved successfully', post });
   } catch (err) {
     return res.status(500).json({ error: err.message });

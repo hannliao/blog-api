@@ -1,36 +1,52 @@
-import { useState, useContext } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { createPost } from '../api/posts';
+import { useState, useContext, useEffect } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
+import { updatePost } from '../api/posts';
 import { PostContext } from '../contexts/PostContext';
 import { UserContext } from '../contexts/UserContext';
 
 const EditPostForm = () => {
+  const { username, slug } = useParams();
+  const { posts, setPosts } = useContext(PostContext);
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
   const [isPublished, setIsPublished] = useState(false);
-  const { posts, setPosts } = useContext(PostContext);
   const { user } = useContext(UserContext);
   const navigate = useNavigate();
+  const post = posts.find((p) => p.username === username && p.slug === slug);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+
+    if (!post) {
+      console.error('Post not found');
+    }
+
     const formData = {
       title,
       content,
       isPublished,
-      userId: user.id,
-      username: user.username,
     };
     try {
-      const response = await createPost(formData);
-      console.log(response.message);
-      const post = response.post;
-      setPosts([post, ...posts]);
-      navigate(`/${user.username}/${post.slug}`);
+      const response = await updatePost(post.id, formData);
+      const updatedPost = response.post;
+      const updatedPosts = posts.map((p) =>
+        p.slug === slug ? updatedPost : p
+      );
+      setPosts(updatedPosts);
+      navigate(`/${user.username}/${updatedPost.slug}`);
     } catch (err) {
       console.error(err);
     }
   };
+
+  useEffect(() => {
+    if (post) {
+      setTitle(post.title);
+      setContent(post.content);
+    } else {
+      console.error('Post not found');
+    }
+  }, []);
 
   return (
     <>

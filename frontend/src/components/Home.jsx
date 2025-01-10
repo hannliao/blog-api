@@ -4,6 +4,10 @@ import PostCard from './PostCard';
 const Home = () => {
   const { posts, loading, error } = usePosts();
 
+  const published = posts
+    .filter((post) => post.isPublished)
+    .sort((a, b) => b.timestamp - a.timestmp);
+
   if (loading) {
     return <div>Loading...</div>;
   }
@@ -15,9 +19,9 @@ const Home = () => {
   return (
     <div className="w-full flex-1">
       <h2 className="text-lg font-medium my-2">Recent Posts</h2>
-      {posts.length > 0 && (
+      {published.length > 0 && (
         <div className="flex flex-wrap justify-around">
-          {posts.map((post, index) => (
+          {published.map((post, index) => (
             <PostCard
               key={index}
               title={post.title}

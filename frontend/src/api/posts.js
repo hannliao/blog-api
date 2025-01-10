@@ -30,3 +30,24 @@ export const createPost = async (formData) => {
   }
   return data;
 };
+
+export const updatePost = async (id, formData) => {
+  const token = localStorage.getItem('token');
+  const response = await fetch(
+    `${import.meta.env.VITE_BLOG_API_URL}/api/posts/${id}`,
+    {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify(formData),
+    }
+  );
+
+  const data = await response.json();
+  if (!response.ok) {
+    throw new Error(data.message);
+  }
+  return data;
+};

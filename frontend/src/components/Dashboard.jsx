@@ -11,24 +11,17 @@ const Dashboard = () => {
   const [selectedFilter, setSelectedFilter] = useState('Published');
   const navigate = useNavigate();
 
-  if (!user) {
-    return (
-      <div className="flex justify-center">
-        You've been logged out.{' '}
-        <Link to="/login" className="text-sky-700 underline">
-          Log In
-        </Link>
-      </div>
-    );
-  }
+  const published = user
+    ? posts
+        .filter((post) => post.userId === user.id && post.isPublished)
+        .sort((a, b) => b.timestamp - a.timestamp)
+    : [];
 
-  const published = posts.filter(
-    (post) => post.userId === user.id && post.isPublished
-  );
-
-  const drafts = posts.filter(
-    (post) => post.userId === user.id && !post.isPublished
-  );
+  const drafts = user
+    ? posts
+        .filter((post) => post.userId === user.id && !post.isPublished)
+        .sort((a, b) => b.timestamp - a.timestamp)
+    : [];
 
   const handleLogout = (event) => {
     localStorage.removeItem('token');
@@ -39,16 +32,28 @@ const Dashboard = () => {
 
   const handleClick = (event) => {
     setSelectedFilter(event.target.textContent);
-    if (event.target.textContent === 'Published') {
-      setFilteredPosts(published);
-    } else {
-      setFilteredPosts(drafts);
-    }
   };
 
   useEffect(() => {
-    setFilteredPosts(published);
-  }, [posts]);
+    if (user && posts.length > 0) {
+      if (selectedFilter === 'Published') {
+        setFilteredPosts(published);
+      } else {
+        setFilteredPosts(drafts);
+      }
+    }
+  }, [selectedFilter, posts, user]);
+
+  if (!user) {
+    return (
+      <div className="flex justify-center">
+        You've been logged out.{' '}
+        <Link to="/login" className="text-sky-700 underline">
+          Log In
+        </Link>
+      </div>
+    );
+  }
 
   if (loading) {
     return <div>Loading...</div>;
@@ -68,9 +73,9 @@ const Dashboard = () => {
       </div>
 
       <h2 className="text-lg font-medium mb-5">Posts</h2>
-      <div className="flex flex-1">
-        <nav className="min-w-48 mr-10 h-5/6">
-          <ul className="h-full flex flex-col flew-grow">
+      <div className="max-w-3xl flex">
+        <nav className="min-w-48 mr-10 h-5/6 flex-shrink-0">
+          <ul className="h-full flex flex-col">
             <li>
               <button
                 onClick={handleClick}
@@ -101,7 +106,7 @@ const Dashboard = () => {
             </li>
           </ul>
         </nav>
-        <div className="flex-1 truncate">
+        <div className="w-full flex-1 truncate">
           {filteredPosts.length > 0 ? (
             <div>
               {filteredPosts.map((post, index) => (
