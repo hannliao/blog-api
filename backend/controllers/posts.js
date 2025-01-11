@@ -36,7 +36,7 @@ exports.createPost = async (req, res) => {
 
 exports.updatePost = async (req, res) => {
   try {
-    const postId = parseInt(req.params.id);
+    const postId = parseInt(req.params.id, 10);
     const { title, content, isPublished } = req.body;
     const newSlug = slugify(title);
     const post = await prisma.post.update({
@@ -57,7 +57,7 @@ exports.updatePost = async (req, res) => {
 
 exports.deletePost = async (req, res) => {
   try {
-    const postId = parseInt(req.params.id);
+    const postId = parseInt(req.params.id, 10);
     await prisma.post.delete({
       where: { id: postId },
     });

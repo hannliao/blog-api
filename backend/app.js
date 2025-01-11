@@ -10,6 +10,7 @@ const { PrismaSessionStore } = require('@quixo3/prisma-session-store');
 
 const authRouter = require('./routes/auth');
 const postsRouter = require('./routes/posts');
+const commentsRouter = require('./routes/comments');
 const userRouter = require('./routes/user');
 
 const app = express();
@@ -44,7 +45,7 @@ app.use((req, res, next) => {
 });
 
 app.use('/', authRouter);
-app.use('/api/posts', postsRouter);
+app.use('/api/posts', postsRouter, commentsRouter);
 app.use(
   '/api/user',
   passport.authenticate('jwt', { session: false }),

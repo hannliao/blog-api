@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { getUser } from '../api/auth';
+import { getUser } from '../api/user';
 
 const useUser = () => {
   const [user, setUser] = useState(null);

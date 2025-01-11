@@ -18,3 +18,16 @@ exports.getUser = async (req, res) => {
       .json({ message: 'Error retrieving user data', error: err.message });
   }
 };
+
+exports.getAllUsers = async (req, res) => {
+  try {
+    const users = await prisma.user.findMany({
+      select: { id: true, username: true },
+    });
+    return res.status(200).json({ users });
+  } catch (err) {
+    res
+      .status(500)
+      .json({ message: 'Error retrieving users', error: err.message });
+  }
+};
