@@ -3,7 +3,7 @@ export const getUser = async () => {
   if (!token) throw new Error('No token found');
 
   const response = await fetch(
-    `${import.meta.env.VITE_BLOG_API_URL}/api/user`,
+    `${import.meta.env.VITE_BLOG_API_URL}/api/users`,
     {
       method: 'GET',
       headers: {

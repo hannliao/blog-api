@@ -47,7 +47,7 @@ app.use((req, res, next) => {
 app.use('/', authRouter);
 app.use('/api/posts', postsRouter, commentsRouter);
 app.use(
-  '/api/user',
+  '/api/users',
   passport.authenticate('jwt', { session: false }),
   userRouter
 );
