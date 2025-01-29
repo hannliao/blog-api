@@ -10,7 +10,7 @@ Backend for blog-api application. Handles API calls for authentication, user dat
 
 ## Built with
 
-- [jsonwebtoken]https://github.com/auth0/node-jsonwebtoken / [passport-jwt](https://github.com/mikenicholson/passport-jwt)
+- [jsonwebtoken](https://github.com/auth0/node-jsonwebtoken) / [passport-jwt](https://github.com/mikenicholson/passport-jwt)
 - [Prisma ORM](https://www.prisma.io/docs/orm)
 - [Passport.js](https://www.passportjs.org/)
 - [PostgreSQL](https://www.postgresql.org/)
